@@ -1,76 +1,85 @@
 #!/usr/bin/python3
-""" Node class """
+"""
+Singly linked list
+"""
 
 
 class Node:
-    """ Node class that defines a node
-    Attributes:
-        prmData: value of the node
-        prmNextNode: next node
-    """
-    __data = 0
-    __next_node = None
+    """define variables and methods"""
 
-    def __init__(self, prmData, prmNextNode=None):
-        self.data = prmData
-        self.next_node = prmNextNode
+    def __init__(self, data, next_node=None):
+        """initialize attibute"""
+        self.data = data
+        self.next_node = next_node
 
     @property
     def data(self):
+        """getter for data"""
         return self.__data
 
     @data.setter
-    def data(self, prmData):
-        if (not isinstance(prmData, int)):
+    def data(self, value):
+        """setter for data"""
+        if not isinstance(value, int):
             raise TypeError("data must be an integer")
-        self.__data = prmData
+        self.__data = value
+#        print("Data stored: " + '{}'.format(self.__data))
 
     @property
     def next_node(self):
+        """getter for next_node"""
         return self.__next_node
 
     @next_node.setter
-    def next_node(self, prmNextNode=None):
-        if (prmNextNode is not None and not isinstance(prmNextNode, Node)):
+    def next_node(self, value):
+        """setter for next_node"""
+        if value is not None and not isinstance(value, Node):
             raise TypeError("next_node must be a Node object")
-        self.__next_node = prmNextNode
-""" SinglyLinkedList class """
+        self.__next_node = value
+#        print("Node created")
 
 
 class SinglyLinkedList:
-    """ SinglyLinkedList class that defines a singly list """
-    __head = None
+    """define variables and methods """
 
     def __init__(self):
-        pass
+        """initialize attibute"""
+        self.__head = None
+
+    def sorted_insert(self, value):
+        """function that inserts a new_node"""
+        new_node = Node(value, None)
+        temp = self.__head
+        if not self.__head:
+            self.__head = new_node
+#            print("hit 'if temp is None'")
+#            print("New_node inserted")
+            return
+        if temp.data > value:
+            new_node.next_node = temp
+            self.__head = new_node
+#            print("hit 'temp.data > value'")
+#            print("New_node inserted")
+            return
+        while temp.next_node is not None:
+            if temp.next_node.data > value:
+                break
+            temp = temp.next_node
+        new_node.next_node = temp.next_node
+        temp.next_node = new_node
+#        print("New_node inserted")
+        return
 
     def __str__(self):
-        head = self.__head
-        result = ""
-
-        while (head is not None):
-            result += str(head.data)
-            if (head.next_node is not None):
-                result += '\n'
-            head = head.next_node
-        return result
-
-    def sorted_insert(self, prmValue):
-        new = Node(prmValue)
-        head = self.__head
-
-        while (
-            head is not None and head.next_node is not None and
-            head.next_node.data < new.data
-        ):
-            head = head.next_node
-
-        if head is None:
-            self.__head = new
-        else:
-            new.next_node = head.next_node
-            head.next_node = new
-            if (head.data > new.data):
-                tmp = new.data
-                new.data = head.data
-                head.data = tmp
+        """
+        define special __str__ method for printing the list values
+        when print(self) is called
+        """
+        list_values = ''
+        temp = self.__head
+        while temp is not None:
+            list_values += str(temp.data)
+            if temp.next_node is not None:
+                list_values += '\n'
+            temp = temp.next_node
+        return list_values
