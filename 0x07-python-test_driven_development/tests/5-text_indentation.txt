@@ -7,21 +7,21 @@
 >>> text_indentation = __import__('5-text_indentation').text_indentation
 
 'text is a string'
->>> text_indentation("Walter: White? Meco.")
-Walter:
+>>> text_indentation("Abebe: Kebede? Alex.")
+Abebe:
 <BLANKLINE>
-White?
+Kebede?
 <BLANKLINE>
-Meco.
+Alex.
 <BLANKLINE>
 
 'text is a string with severals blankspaces'
->>> text_indentation("Walter:		White?            Meco.")
-Walter:
+>>> text_indentation("Abebe:		Kebede?            Alex.")
+Abebe:
 <BLANKLINE>
-White?
+Kebede?
 <BLANKLINE>
-Meco.
+Alex.
 <BLANKLINE>
 
 'text with .:? without balnkspace'
