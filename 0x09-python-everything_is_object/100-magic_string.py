@@ -1,4 +1,15 @@
 #!/usr/bin/python3
-def magic_string(B=[]):
-    B += ["BestSchool"]
-    return (", ".join(B)
+
+
+def call_counter(func):
+    def helper():
+        helper.calls += 1
+        return func()
+    helper.calls = 0
+
+    return helper
+
+
+@call_counter
+def magic_string():
+    return 'BestSchool, ' * (magic_string.calls - 1) + 'BestSchool'
